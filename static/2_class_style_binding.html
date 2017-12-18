@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<script src="https://unpkg.com/vue"></script>
+<script type="text/javascript" src="2_class_style_binding.js"></script>
+
+<!-- app1: class binding -->
+<div id="app1" class="static"
+     v-bind:class="{ active: isActive }">
+</div>
+
+<!-- app2: inline style binding -->
+<div id="app2" v-bind:style="{ color: activeColor, fontSize: fontSize + 'px' }">font size changing</div>
+<div id="app3" v-bind:style="styleObject">style object binding</div>
+
+</body>
+</html>

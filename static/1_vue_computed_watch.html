@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script src="https://unpkg.com/vue"></script>
+<script type="text/javascript" src="1_vue_computed_watch.js"></script>
+<div id="app">
+  {{ message }}
+</div>
+
+<!-- hello world -->
+<div id="app-4">
+  <ol>
+    <li v-for="todo in todos">
+      {{ todo.text }}
+    </li>
+  </ol>
+</div>
+
+<!-- v-bind 약어 -->
+<a v-bind:href="url"> ... </a>
+<a :href="url"> ... </a>
+
+<!-- v-on 약어 -->
+<a v-on:click="doSomething"> ... </a>
+<a @click="doSomething"> ... </a>
+
+<!-- button click event -->
+<div id="app-5">
+    <p>{{ message }}</p>
+    <button v-on:click="reverseMessage">메시지 뒤집기</button>
+</div>
+
+<!-- watch -->
+<div id="demo">{{ fullName }}</div>
+
+<!-- v-for -->
+<div id="app-7">
+  <ol>
+    <!--
+      이제 각 todo-item 에 todo 객체를 제공합니다.
+      화면에 나오므로, 각 항목의 컨텐츠는 동적으로 바뀔 수 있습니다.
+      또한 각 구성 요소에 "키"를 제공해야합니다 (나중에 설명 됨).
+     -->
+    <todo-item
+      v-for="item in groceryList"
+      v-bind:todo="item"
+      v-bind:key="item.id">
+    </todo-item>
+  </ol>
+</div>
+
+<!-- computed -->
+<div id="example">
+  <p>원본 메시지: "{{ message }}"</p>
+  <p>뒤집히도록 계산된 메시지: "{{ reversedMessage }}"</p>
+    <button v-on:click="reverseMsg">콘솔 찍기</button>
+</div>
+
+<!-- watch -->
+<div id="watch-example">
+  <p>
+    yes/no 질문을 물어보세요:
+    <input v-model="question">
+  </p>
+  <p>{{ answer }}</p>
+</div>
+<script src="https://unpkg.com/axios@0.12.0/dist/axios.min.js"></script>
+<script src="https://unpkg.com/lodash@4.13.1/lodash.min.js"></script>
+<script>
+var watchExampleVM = new Vue({
+  el: '#watch-example',
+  data: {
+    question: '',
+    answer: '질문을 하기 전까지는 대답할 수 없습니다.'
+  },
+  watch: {
+    // 질문이 변경될 때 마다 이 기능이 실행됩니다.
+    question: function (newQuestion) {
+      this.answer = '입력을 기다리는 중...';
+      this.getAnswer();
+    }
+  },
+  methods: {
+    // _.debounce는 lodash가 제공하는 기능으로
+    // 특히 시간이 많이 소요되는 작업을 실행할 수 있는 빈도를 제한합니다.
+    // 이 경우, 우리는 yesno.wtf/api 에 액세스 하는 빈도를 제한하고,
+    // 사용자가 ajax요청을 하기 전에 타이핑을 완전히 마칠 때까지 기다리길 바랍니다.
+    // _.debounce 함수(또는 이와 유사한 _.throttle)에 대한
+    // 자세한 내용을 보려면 https://lodash.com/docs#debounce 를 방문하세요.
+    getAnswer: _.debounce(
+      function () {
+        if (this.question.indexOf('?') === -1) {
+          this.answer = '질문에는 일반적으로 물음표가 포함 됩니다. ;-)'
+          return
+        }
+        this.answer = '생각중...'
+        var vm = this
+        axios.get('https://yesno.wtf/api')
+          .then(function (response) {
+            vm.answer = _.capitalize(response.data.answer)
+          })
+          .catch(function (error) {
+            vm.answer = '에러! API 요청에 오류가 있습니다. ' + error
+          })
+      },
+      // 사용자가 입력을 기다리는 시간(밀리세컨드) 입니다.
+      500
+    )
+  }
+})
+</script>
+</body>
+</html>

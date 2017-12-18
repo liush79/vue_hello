@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script src="https://unpkg.com/vue"></script>
+<script type="text/javascript" src="5_event_handling.js"></script>
+<!-- event button click -->
+<div id="ex-1">
+    <button @click="counter += 1">Add 1</button>
+    <p>위 버튼을 클릭한 횟수는 {{ counter }}번 입니다.</p>
+</div>
+<!-- method event handler-->
+<div id="ex-2">
+    <button @click="greet">Greet</button>
+</div>
+<!-- inline method handler -->
+<div id="ex-3">
+    <button @click="say('hi')">Say hi</button>
+    <button @click="say('what')">Say what</button>
+    <button @click="warn('Form cannot be submitted yet.', $event)">Submit</button>
+</div>
+</body>
+</html>
