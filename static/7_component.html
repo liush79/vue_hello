@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script src="https://unpkg.com/vue"></script>
+<script type="text/javascript" src="7_component.js"></script>
+
+<div id="vue_component">
+    <my-component></my-component>
+</div>
+
+<div id="local_component">
+    <my-local-component></my-local-component>
+</div>
+<div>===============================</div>
+<div id="other_component">
+    <my-component></my-component>
+    <!-- my local compoent 는 안그려짐.. id='local_compoent' 안에서만 사용할 수 있음) -->
+    <!-- 오류 나니까 주석처리.. -->
+    <!--
+    <my-local-component></my-local-component>
+    -->
+</div>
+
+<!-- simple counter -->
+<div id="example-2">
+    <simple-counter></simple-counter>
+    <simple-counter></simple-counter>
+    <simple-counter></simple-counter>
+</div>
+
+</body>
+</html>
+
