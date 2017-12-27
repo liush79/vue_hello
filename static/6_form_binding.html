@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script src="https://unpkg.com/vue"></script>
+<script type="text/javascript" src="6_form_binding.js"></script>
+
+<div id="form-binding">
+    <!-- input box -->
+    <input v-model="message" placeholder="수정해주세요">
+    <p>메세지: {{ message }}</p>
+    <!-- multi line message -->
+    <span>multiline message is:</span>
+    <p style="white-space: pre-line">{{ message2 }}</p>
+    <!-- NOT working <textarea> MESSAGE </textarea>-->
+    <textarea v-model="message2"></textarea>
+    <br>
+    <!-- check box -->
+    <br>
+    <input type="checkbox" id="checkbox" v-model="vchecked">
+    <label for="checkbox">{{ vchecked }}</label>
+    <br>
+    <!-- multiple checkboxes -->
+    <br>
+    <input type="checkbox" id="jack" value="jack" v-model="names">
+    <label for="jack">Jack</label>
+    <input type="checkbox" id="john" value="john" v-model="names">
+    <label for="john">John</label>
+    <input type="checkbox" id="mike" value="mike" v-model="names">
+    <label for="mike">Mike</label>
+    <br>
+    <span>checked names: {{ names }}</span>
+    <br>
+    <!-- radio -->
+    <br>
+    <input type="radio" id="one" value="One" v-model="picked">
+    <label for="one">One</label>
+    <br>
+    <input type="radio" id="two" value="Two" v-model="picked">
+    <label for="two">Two</label>
+    <br>
+    <span>Picked: {{ picked }}</span>
+    <br>
+    <!-- select -->
+    <select v-model="selected">
+    <!-- <select v-model="selected" multiple -->
+        <option disabled value="">Please Select One</option>
+        <option>A</option>
+        <option>B</option>
+        <option>C</option>
+    </select>
+    <br>
+    <span>selected: {{ selected }}</span>
+    <br>
+    <!-- select with for -->
+    <br>
+    <select v-model="select_with_for">
+        <option v-for="opt in options" :value="opt.value">
+            {{ opt.text }}
+        </option>
+    </select>
+    <br>
+    <span>selected: {{ select_with_for }}</span>
+    <br>
+    <!-- v-model.lazy -->
+    <br>
+    <input v-model.lazy="lazy_msg" placeholder="laze message">
+    <br>
+    <span>input message: {{ lazy_msg }}</span>
+    <br>
+    <!-- v-model.number -->
+    <br>
+    <input v-model.number="number_msg" type="number" placeholder="number message">
+    <br>
+    <span>input message: {{ number_msg }}</span>
+    <br>
+    <!-- v-model.trim -->
+    <br>
+    <input v-model.trim="trim_msg" placeholder="trim message">
+    <br>
+    <span>input message: {{ trim_msg }}</span>
+    <br>
+</div>
+
+</body>
+</html>
+
