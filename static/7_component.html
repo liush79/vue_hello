@@ -32,6 +32,25 @@
     <simple-counter></simple-counter>
 </div>
 
+<div id="base">
+    <!-- Props: parent 에서 child component로 데이터 전달 -->
+    <props-child props-message="hello1 !"></props-child>
+
+    <!-- 동적 props -->
+    <br>
+    <input v-model="parentMsg">
+    <br>
+    <props-child :props-message="parentMsg"></props-child>
+    <br>
+</div>
+<div>==========================================================</div>
+<div id="valid-example">
+    <valid-ex :prop-a="123" prop-c="abc"></valid-ex>
+    <br>
+    <!-- template 으로 그려진 이후에 class 가 추가되고 data-3d-date-picker="true" 속성이 추가됨. -->
+    <!-- 추가로.. class와 style 속성은 합쳐지고, 다른 속성은 대부분 대체됨 -->
+    <bs-date-input data-3d-date-picker="true" class="date-picker-theme-dark"></bs-date-input>
+</div>
 </body>
 </html>
 

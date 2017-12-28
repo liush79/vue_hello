@@ -36,4 +36,64 @@ window.onload = function() {
     new Vue({
        el: '#example-2'
     });
+
+    // ===================================== 중요 ======================================
+    // component 생성보다 new Vue() 를 먼저하면 안됨 !! 이유가 뭔지?
+    // new Vue({ el: '#base' });
+    // =================================================================================
+    Vue.component('props-child', {
+        props: ['propsMessage'],
+        template: '<span>{{ propsMessage }}</span>'
+    });
+    // Props
+    new Vue({
+        el: '#base',
+        data: {
+            parentMsg: ''
+        }
+    });
+
+    // valid-example
+    Vue.component('valid-ex', {
+        props: {
+            // 기본 타입 확인 (`null` 은 어떤 타입이든 가능하다는 뜻입니다)
+            propA: Number,
+            // 여러개의 가능한 타입
+            propB: [String, Number],
+            // 문자열이며 꼭 필요합니다
+            propC: {
+                type: String,
+                required: true
+            },
+            // 숫자이며 기본 값을 가집니다
+            propD: {
+                type: Number,
+                default: 100
+            },
+            // 객체/배열의 기본값은 팩토리 함수에서 반환 되어야 합니다.
+            propE: {
+                type: Object,
+                default: function () {
+                    return {message: 'hello'}
+                }
+            },
+            // 사용자 정의 유효성 검사 가능
+            propF: {
+                validator: function (value) {
+                    return value > 10
+                }
+            }
+        },
+        template: '<span>{{ propA }}, {{ propC }}</span>'
+    });
+    Vue.component('bs-date-input', {
+        template: '<input type="date" class="form-control">'
+    });
+    // Props
+    new Vue({
+        el: '#valid-example',
+        data: {
+            parentMsg: ''
+        }
+    });
 };
