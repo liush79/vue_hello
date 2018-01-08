@@ -32,6 +32,7 @@
     <simple-counter></simple-counter>
 </div>
 
+<div>==========================================================</div>
 <div id="base">
     <!-- Props: parent 에서 child component로 데이터 전달 -->
     <props-child props-message="hello1 !"></props-child>
@@ -43,14 +44,126 @@
     <props-child :props-message="parentMsg"></props-child>
     <br>
 </div>
-<div>==========================================================</div>
 <div id="valid-example">
     <valid-ex :prop-a="123" prop-c="abc"></valid-ex>
     <br>
     <!-- template 으로 그려진 이후에 class 가 추가되고 data-3d-date-picker="true" 속성이 추가됨. -->
-    <!-- 추가로.. class와 style 속성은 합쳐지고, 다른 속성은 대부분 대체됨 -->
+    <!-- 참고: class와 style 속성은 합쳐지고, 다른 속성은 대부분 대체됨 -->
     <bs-date-input data-3d-date-picker="true" class="date-picker-theme-dark"></bs-date-input>
 </div>
+<div>==========================================================</div>
+<!-- v-on -->
+<div id="counter-event-example">
+    <p>{{ total }}</p>
+    <button-counter v-on:increment="incrementTotal"></button-counter>
+    <button-counter v-on:increment="incrementTotal"></button-counter>
+</div>
+<div>==========================================================</div>
+<!-- .sync example -->
+<div id="sync_example">
+    <!-- 'bar' is parent data -->
+    <p>{{ bar }}</p>
+    <!-- 'foo' is child data -->
+    <sync-test v-bind:foo.sync="bar"></sync-test>
+</div>
+<div>==========================================================</div>
+<div id="custom_events">
+    <currency-input label="Price" v-model="price"></currency-input>
+    <currency-input label="Tax" v-model="tax"></currency-input>
+    <p>Total: ${{ total }}</p>
+</div>
+<!-- 실패.. 좀더 이해하고 해보자.
+<div>==========================================================</div>
+<div id="custom_v_model">
+    <my-checkbox :checked="foo" @change="val => { foo = val }" value="some value"></my-checkbox>
+</div>
+-->
+<div>=============================== event bus ================================</div>
+<div id="app_a">
+    <label>app a state: </label>
+    <input v-model="a_state.value">
+    <br>
+    <label>bus state (event bus): </label>
+    <input v-model="bus_state.message">
+</div>
+
+<div id="app_b">
+    <label>app b state: </label>
+    <input v-model="b_state.value">
+    <br>
+    <label>bus state (event bus): </label>
+    <input v-model="bus_state.message">
+</div>
+<div>============================== slot ==================================</div>
+<!-- slot -->
+<div id="test_slot_component">
+    <div> ===== single slot ===== </div>
+    <h1>나는 부모컴포넌트의 제목입니다.</h1>
+    <test-slot>
+        <p>이것은 원본 컨텐츠 입니다.</p>
+        <p>이것은 원본 줄 추가 컨텐츠 입니다.</p>
+    </test-slot>
+    <test-slot>
+        <!-- 여기에는 slot 부분의 문자가 나온다. -->
+    </test-slot>
+    <div> ===== named slot ===== </div>
+    <named-slot>
+        <h4 slot="header">여기에 header 부분이 위치합니다.</h4>
+        <p>main contents 부분입니다.</p>
+        <p>main 하나더</p>
+        <p slot="footer">여기는 footer 부분입니다.</p>
+        <p>main이 여기에 있으면....footer 위에 나올까 아래에 나올까?</p>
+    </named-slot>
+    <div> ===== scope slot ===== </div>
+    <scope-slot>
+        <template slot-scope="propsAAA">
+            <span>hello from parent</span>
+            <span>{{ propsAAA.text }}</span>
+        </template>
+    </scope-slot>
+    <my-awesome-list :items="awesome_list_items">
+        <li slot="item" slot-scope="propsBBB" class="my-fancy-item">
+            {{ propsBBB.text }}
+        </li>
+    </my-awesome-list>
+</div>
+<div>========================== dynamic component =========================</div>
+<div id="dynamic_component">
+    <component v-bind:is="currentView">
+      <!-- vm.currentView가 변경되면 컴포넌트가 변경됩니다! -->
+      <!-- 콘솔창에서(on chrome) dynamic_component.__vue__.currentView = 'archive' 라고하면
+        component 가 변경되는 것을 확인할 수 있다. -->
+    </component>
+</div>
+<div>========================== recursive component =========================</div>
+<script type="text/x-template" id="recursive_template">
+    <li>
+        <div @click="toggle">
+            {{model.name}}
+            <span v-if="isFolder">[{{open ? '-' : '+'}}]</span>
+        </div>
+        <ul v-show="open" v-if="isFolder">
+            <recursive-item
+                v-for="model in model.children"
+                :model="model">
+            </recursive-item>
+        </ul>
+    </li>
+</script>
+<!-- the demo root element -->
+<ul id="recursive_demo">
+    <recursive-item :model="treeData"></recursive-item>
+</ul>
+<div>========================== inline component =========================</div>
+<div id='inline_component'>
+    <my-inline-component inline-template>
+        <div>
+        <p>이것은 컴포넌트의 자체 템플릿으로 컴파일됩니다.</p>
+        <p>부모가 만들어낸 내용이 아닙니다.</p>
+        <p>child data: '{{ title }}'</p>
+        </div>
+    </my-inline-component>
+</div>
+
 </body>
 </html>
-

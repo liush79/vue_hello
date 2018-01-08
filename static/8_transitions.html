@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link type="text/css" rel="stylesheet" href="8_transitions.css">
+    <title>Title</title>
+</head>
+<body>
+<script src="https://unpkg.com/vue"></script>
+<script type="text/javascript" src="8_transitions.js"></script>
+
+<div id="basic">
+    <button @click="fade_show = !fade_show">Fade Toggle</button>
+    <transition name="fade">
+        <p v-if="fade_show">hello</p>
+    </transition>
+    <div>----------------</div>
+    <button @click="slide_fade_show = !slide_fade_show">Slide Fade Toggle</button>
+    <transition name="slide-fade">
+        <p v-if="slide_fade_show">HTLLO !!</p>
+    </transition>
+    <div>----------------</div>
+    <button @click="bounce_fade_show = !bounce_fade_show">Bounce Fade Show</button>
+    <transition name="bounce">
+        <p v-if="bounce_fade_show">Look at me !</p>        
+    </transition>
+</div>
+
+<!--
+    이 외의 예제들은 vuejs 홈페이지 예제를 봐라
+    다양한 기능이 있다 어떤기능이 있는지 알아두면 도움이 될듯.
+    필요할때만 보면 될것 같음.
+    https://kr.vuejs.org/v2/guide/transitions.html
+    https://kr.vuejs.org/v2/guide/transitioning-state.html
+-->
+
+</body>
+</html>
