@@ -24,7 +24,7 @@ def view_dashboard():
                 file_names.append(ff)
         file_names = sorted(file_names, cmp=sort_files)
         for f in file_names:
-            links.append({'href': '%s.html' % f, 'text': f})
+            links.append({'href': '%s' % f, 'text': f})
         return render_template('index.html', links=links)
     except Exception, e:
         print 'Exception,', str(e)
